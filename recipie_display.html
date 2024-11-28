@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipie Display</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script> -->
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Merriweather:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="/BootStrap/css and js/bootstrap-4.6.2-dist/css/bootstrap.css"
+    />
+
+    <style>
+      body {
+        font-family: Poppins;
+      }
+      /* .row {
+        border: 1px solid red;
+      } */
+      /* #navbarhaiyeh {
+        background-color: burlywood;
+      } */
+      #navbar {
+        border-radius: 1rem;
+        font-family: Poppins;
+        font-size: medium;
+      }
+      .nav-link img {
+        width: 5em; /* Set your desired width */
+        height: 5em; /* Set your desired height */
+        margin-right: 5px; /* Spacing between image and text */
+        vertical-align: middle; /* Align image with text */
+        border-radius: 1rem;
+      }
+      .nav-link {
+        transition: color 0.3s ease, transform 0.3s ease; /* Smooth transition for color and scale */
+      }
+      .nav-link:hover {
+        color: #e63946; /* Change to a new color on hover */
+        transform: scale(1.1); /* Slightly increase size on hover */
+      }
+
+      .card-link {
+        transition: color 0.2s ease, transform 0.2s ease; /* Smooth transition for color and scale */
+      }
+      .card:hover {
+        color: #e63946; /* Change to a new color on hover */
+        transform: scale(1.1); /* Slightly increase size on hover */
+      }
+      a {
+        color: black;
+      }
+      .carousel-item img {
+        width: 100%;
+        height: 25rem; /* Set the height of the carousel images */
+        object-fit: cover; /*Ensure images cover the area without distortion*/
+      }
+      #search img:hover {
+        background-color: brown; /* Background color for the image */
+        border-radius: 5px; /* Optional: Add rounded corners to the image */
+      }
+
+      #search:hover img {
+        transform: scale(1.1); /* Add a scaling effect */
+      }
+      #rs-image {
+        padding: 0;
+        margin: 0;
+      }
+      #footer {
+        /* background-color: black;
+        background: url("images/food3.jpg") no-repeat center center;
+        background-size: cover; */
+        color: white;
+        padding: 20px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+      }
+      .container-fluid,
+      .row {
+        padding: 0;
+        margin: 0;
+      }
+      .carousel-inner {
+        border-radius: 15px; /* Adjust radius as needed */
+        overflow: hidden; /* Ensures the border radius is visible */
+      }
+      .navbar {
+        border-radius: 1rem;
+      }
+      li {
+        padding: 1rem;
+      }
+      /* for centering nav  */
+      /* #navbarNav {
+        display: flex;
+        justify-content: center;
+      } */
+      #rd_image img {
+        border-radius: 1rem;
+      }
+      #time {
+        background-color: white;
+        color: black;
+        margin-top: 1rem;
+        border-radius: 2rem;
+        padding: 1rem;
+        margin-bottom: 1rem;
+      }
+      #img_aur_title {
+        background-color: white;
+        color: black;
+        width: 100%;
+        border-radius: 1rem;
+        font-family: Poppins;
+      }
+      #ingre {
+        border-radius: 1rem;
+        background-color: rgb(239, 239, 239);
+        font-size: medium;
+        font-family: Poppins;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row my-3 mx-3 border shadow-sm" style="border-radius: 0.8rem">
+        <div
+          class="col-md-2 px-4 d-flex align-items-center justify-content-center"
+        >
+          <img src="images/logo_sample.png" width="150em" alt="" srcset="" />
+        </div>
+        <div class="col-md-10" id="navbarhaiyeh">
+          <br />
+          <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#"></a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target="#navbarNav"
+              aria-controls="navbarNav"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item active">
+                  <a class="nav-link" href="#"
+                    ><img src="images/breakfast-logo.webp" /> Breakfast</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#"
+                    ><img src="images/starter-logo.webp" />Starter</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#"
+                    ><img src="images/lunch-logo.png" />Lunch</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#"
+                    ><img src="images/dinner-logo.jpg" />Dinner</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </nav>
+          <!-- Search Bar -->
+          <br />
+          <form method="post">
+            <input
+              type="search"
+              class="form-control"
+              name=""
+              id=""
+              placeholder="Search a Recipie"
+            />
+          </form>
+          <br />
+        </div>
+      </div>
+      <!-- after navbar  -->
+
+      <br />
+      <!-- The recipie display div -->
+      <div class="row p-2" id="rd_image">
+        <div class="col-md-9 py-2">
+          <div
+            id="img_aur_title"
+            class="d-flex flex-column align-items-center border shadow-lg"
+          >
+            <h3
+              style="
+                background-color: white;
+                color: black;
+                width: 30%;
+                text-align: center;
+                padding: 1rem;
+                border-radius: 1rem;
+                margin-top: 1rem;
+              "
+            >
+              Mattar Panner
+            </h3>
+
+            <img
+              class="align-self-center"
+              src="images/panner.jpg"
+              width="50%"
+              alt=""
+            />
+            <div id="time">
+              <span>45 minutes - </span><span><i>Veg Dish</i> </span>
+            </div>
+          </div>
+
+          <br />
+          <h3>Ingredients</h3>
+          <div id="ingre" class="border shadow-sm p-2 font-weight-normal">
+            <p>
+              1 cup cubed paneer ( Indian Cottage cheese) 1 medium onion, <br />
+              skinless 1 clove garlic 1 teaspoon grated ginger 1/2 teaspoon
+              turmeric powder 1 teaspoon coriander powder 1 teaspoon cumin
+              powder 2 teaspoons Tomato Paste, <br />
+              mixed thoroughly in a cup of water 2 teaspoons kasuri methi (
+              dried fenugreek leaves) 1/2 cup heavy whipping cream salt to taste
+              1/2 <br />teaspoon sugar 1 teaspoon canola oil 2 teaspoons
+              Kashmiri mirch ( Kashmiri Red Chilli Powder)
+            </p>
+          </div>
+          <br />
+          <h3>Steps</h3>
+          <div id="ingre" class="border shadow-sm p-2">
+            Boil the potatoes, cool, peel and grate them. Grate paneer. Wash all
+            green chillies, deseed and chop them fine. Peel carrots,grate them,
+            add peas and some water, boil them in microwave for 10 mins. Once
+            done, remove excess by passing & squeezing it through a muslin
+            cloth. Peel onions, cut them into halves and boil with a cup of
+            water for ten minutes. Drain excess water, cool onions and grind
+            them into a smooth paste. Set Aside. In a bowl, mix mashed potatoes,
+            paneer, some chopped green chillies, boiled carrot-peas, corn flour
+            and salt. Mix well. Divide into 20-22 equal sized balls. Stuff
+            raisins & cashew into them. Deep fry in hot oil until slightly
+            golden brown. Drain and keep aside. Fry one kofta and check for
+            binding, if it breaks, add a little more cornflour. Deep fry in hot
+            oil. OR BAKE in a 375F pre-heat oven, by arranging & spraying oil on
+            these koftas placing them on a cookie sheet wraped with aluminum
+            foil,for 10 mins. Keep a close watch, with the help of tongs, turn
+            them once they are slight brown on one side. On the other side heat
+            oil in a kadai, add shahjeera, boiled onion paste and cook for five
+            minutes. Add ginger & garlic, few chopped green chillies, coriander
+            powder, cumin powder, turmeric powder, and salt. cook for a minute.
+            Add tomato puree and red chilli powder and cook on medium flame
+            untill oil separates from gravy. Add half&half along with some water
+            & bring it to a boil and simmer for ten minutes on a slow flame.
+            Stir occasionally. Stir in fresh cream and garam masala powder.
+            Gently put all of these kofta's in the gravy when ready to serve.
+            Simmer for another 2 mins and enjoy this rich, creamy gravy with
+            Nan/Roti (Indian Flat Bread.)
+          </div>
+        </div>
+        <!-- end of recipie display div  -->
+        <div class="col-md-3 mt-3">
+          <div class="row p-3 border shadow" style="border-radius: 0.8rem">
+            <h6>Recent Recipies</h6>
+
+            <div class="col-md-8 p-2">
+              <img
+                src="images/food1.jpg"
+                id="rs-image"
+                width="70%"
+                alt=""
+                srcset=""
+              />
+            </div>
+            <div class="col-md-4 p-2">
+              <span>Pav Bhaji</span>
+              <h6>21st August 2024</h6>
+            </div>
+            <div class="col-md-8 p-2">
+              <img
+                src="images/food2.jpg"
+                id="rs-image"
+                width="70%"
+                alt=""
+                srcset=""
+              />
+            </div>
+            <div class="col-md-4 p-2">
+              <span>Pav Bhaji</span>
+              <h6>21st August 2024</h6>
+            </div>
+            <div class="col-md-8 p-2">
+              <img
+                src="images/food2.jpg"
+                id="rs-image"
+                width="70%"
+                alt=""
+                srcset=""
+              />
+            </div>
+            <div class="col-md-4 p-2">
+              <span>Pav Bhaji</span>
+              <h6>21st August 2024</h6>
+            </div>
+            <div class="col-md-8 p-2">
+              <img
+                src="images/food2.jpg"
+                id="rs-image"
+                width="70%"
+                alt=""
+                srcset=""
+              />
+            </div>
+            <div class="col-md-4 p-2">
+              <span>Pav Bhaji</span>
+              <h6>21st August 2024</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br /><br />
+
+      <div class="row" id="footer" style="background-color: black">
+        <footer
+          class="col-md-12 text-white px-4 text-center d-flex flex-column"
+        >
+          <div class="row p-4">
+            <div class="col-md-12 p-2">
+              <img
+                src="images/logo_sample.png"
+                alt=""
+                srcset=""
+                style="border-radius: 1rem"
+              />
+            </div>
+            <div class="col-md-12 p-2">
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              Necessitatibus deleniti sequi ducimus cumque quam illo eum ab
+              distinctio laborum reprehenderit?
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row p-3">
+                <div class="col-md-6 p-2">
+                  <h4>
+                    <i><u>News Letter Signup ---></u></i>
+                  </h4>
+                </div>
+                <div class="col-md-6 p-2">
+                  <form action="" method="post">
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        name="email"
+                        id="email"
+                        class="form-control"
+                        placeholder="Enter your email"
+                      />
+                      <input
+                        type="submit"
+                        value="Submit"
+                        class="btn btn-primary"
+                      />
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-md-12">
+              <p>&copy; 2024 Recipe Book. All rights reserved.</p>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
