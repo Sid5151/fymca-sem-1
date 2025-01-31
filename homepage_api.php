@@ -5,8 +5,8 @@
 
 // API Key and Endpoint
 $apiKey = "fdabb44a326a44ec905c14168fb25040"; // Replace with your API key
-$searchQuery = "Indian"; // Search term
-$number = 1; // Number of results per page
+$searchQuery = "India"; // Search term
+$number = 6; // Number of results per page
 
 // Ensure 'page' exists in $_GET and is a valid value
 $apiUrl = "https://api.spoonacular.com/recipes/complexSearch?query=$searchQuery&number=$number&apiKey=$apiKey&timestamp=" . time();
@@ -30,6 +30,7 @@ $data = json_decode($response, true);
 
 // Check and process API response
 if (!empty($data['results'])) {
+  echo '<div class="row">';
   foreach ($data['results'] as $recipe) {
     $title = $recipe['title'];
     $image = $recipe['image'];
@@ -50,37 +51,25 @@ if (!empty($data['results'])) {
     curl_close($ingredientsCh);
 
     $ingredientsData = json_decode($ingredientsResponse, true);
-    $description = $ingredientsData['summary'];
+    $description = strip_tags($ingredientsData['summary']);
 
-    // Limit description to 5 words
+    // Limit description to 50 words
     $descriptionWords = explode(' ', $description);
-    $limitedDescription = implode(' ', array_slice($descriptionWords, 0, 5)) . '...';
-
-    $diet = isset($ingredientsData['vegetarian']) && $ingredientsData['vegetarian'] ? 'Vegetarian' : 'Non-Veg';
-    $diet = isset($ingredientsData['vegan']) && $ingredientsData['vegan'] ? 'Vegan' : $diet;
-    $recipeTime = isset($ingredientsData['readyInMinutes']) ? $ingredientsData['readyInMinutes'] : 'N/A';
+    $limitedDescription = implode(' ', array_slice($descriptionWords, 0, 50)) . '...';
 
     echo '
-                <div class="col-md-12 py-3">
-            <h5>Popular Recipies</h5>
-            <hr />
-            <div class="card-deck">
-              <div class="card">
-                <a href="">
-                  <img
-                    src="' . $image . '"
-                    class="card-img-top"
-                    alt=""/>
-                </a>
-
-                <div class="card-body">
-                  <div class="card-title">' . $title . '</div>
-                  <p class="card-text">
-                    ' . $description . '
-                  </p>
+            <div class="col-md-4 py-3">
+                <div class="card">
+                    <a href="recipie_display.php?recipe_id=' . $recipe_id . '">
+                        <img src="' . $image . '" class="card-img-top" alt="' . $title . '" />
+                    </a>
+                    <div class="card-body">
+                        <div class="card-title">' . $title . '</div>
+                        <p class="card-text">' . $limitedDescription . '</p>
+                    </div>
                 </div>
-              </div>
-              
-          ';
+            </div>
+        ';
   }
+  echo '</div>';
 }

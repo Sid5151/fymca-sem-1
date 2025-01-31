@@ -194,6 +194,12 @@
       </div>
     </div>
     <!-- after navbar  -->
+    <?php
+    include "dbconnect1.php";
+    $squery = "Select * from rinfo where recipe_id = 654534";
+    $result = mysqli_query($conn, $squery);
+    $row = mysqli_fetch_assoc($result);
+    ?>
     <div class="row">
       <div class="col-md-12">
         <div
@@ -210,11 +216,11 @@
           </ol>
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <img src="images/food1.jpg" class="d-block w-100" alt="..." />
+              <img src="images/pm1.jpg" class="d-block w-100" alt="..." />
               <div class="carousel-caption d-none d-md-block">
-                <h5>First slide label</h5>
+                <h5><a href="recipie_display.php?recipe_id='654534'"><?php echo $row['title'];  ?></a></h5>
                 <p>
-                  Some representative placeholder content for the first slide.
+                  Butter Paneer Masala, a quintessential North Indian dish, is a rich and creamy delicacy that tantalizes the taste buds with its robust flavors.
                 </p>
               </div>
             </div>
@@ -265,45 +271,47 @@
     <!-- adv search  -->
     <div class="row p-3">
       <div class="col-md-12">
-        <form class="d-flex justify-content-between align-items-center">
+        <form action="result.php" class="d-flex justify-content-between align-items-center">
           <input
             type="text"
-            name=""
+            name="req"
             id=""
             placeholder="Search for Ingredients"
             class="form-control mx-2" />
-          <select name="" id="" class="form-control mx-2">
-            <option value="" disabled selected>Select Type Of Dish</option>
-            <option value="Indian">Indian</option>
-            <option value="Chinese">Chinese</option>
-            <option value="Italian">Italian</option>
-            <option value="Mexican">Mexican</option>
-          </select>
-          <select name="" id="" class="form-control mx-2">
+
+          <select name="maxCookingTime" id="" class="form-control mx-2">
             <option value="" disabled selected>Cooking Time</option>
-            <option value="10 mins">10 mins</option>
-            <option value="30 mins">30 mins</option>
-            <option value="1 hour">1 hour</option>
-            <option value="More than 1 hour">More than 1 hour</option>
+            <option value="10">10 mins</option>
+            <option value="30">30 mins</option>
+            <option value="60">1 hour</option>
+
           </select>
-          <a href=""><img
+          <button type="submit">
+            <img
               id="search"
               src="/FYMCA SEM-I mini project/images/search.png"
               alt=""
-              srcset="" /></a>
+              srcset="" />
+          </button>
         </form>
       </div>
     </div>
+
     <br />
     <div class="row p-2">
       <div class="col-md-9 p-3 border shadow" style="border-radius: 0.8rem">
 
         <div class="row" id="popular">
+          <div class="d-flex justify-content-center align-items-center">
+            <div class="spinner-border" role="status">
+              <span class="sr-only align-items-center">Loading.....</span>
+            </div>
+          </div>
         </div>
         <script src=" jquery-3.7.0.min.js"></script>
         <script>
           $(document).ready(function() {
-            $('.spinner-border').hide();
+            $('.spinner-border').show();
             console.log("Working");
             $.ajax({
               url: "homepage_api.php", // Ensure this path is correct

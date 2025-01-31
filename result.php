@@ -245,6 +245,7 @@
       </div>
       <!-- <a href="result.php?currpage=<?php echo intval(3) ?>">3</a> -->
       <?php
+      error_reporting(0);
       if (isset($_GET['page'])) {
         $page = $_GET['page'];
       } else {
@@ -261,8 +262,13 @@
       // Replace spaces with underscores
       $req = str_replace(" ", "_", $req);
 
-      // Output: hello_world
+      $ingredients = $_GET['req'];
+      $dishType = $_GET['dishType'];
+      $maxCookingTime = $_GET['maxCookingTime'];
       ?>
+      <input type="text" id="ingredients" value="<?php echo $ingredients ?>" hidden>
+      <input type="text" id="dishType" value="<?php echo $dishType ?>" hidden>
+      <input type="text" id="maxCookingTime" value="<?php echo $maxCookingTime ?>" hidden>
 
       <input type="text" id="reqv" value="<?php echo $req ?>" hidden>
       <script src="jquery-3.7.0.min.js"></script>
@@ -272,6 +278,10 @@
         var lunch = "lunch";
         var Dinner = "Dinner";
         var reqv = document.getElementById('reqv').value;
+
+        var ingredients = document.getElementById('ingredients').value;
+        var dishType = document.getElementById('dishType').value;
+        var maxCookingTime = document.getElementById('maxCookingTime').value;
         $(document).ready(function() {
           $('.spinner-border').show();
           console.log("Working");
@@ -280,6 +290,9 @@
             type: "POST",
             data: {
               req: reqv,
+              ingredients: ingredients,
+              dishType: dishType,
+              maxCookingTime: maxCookingTime,
               page: <?php echo $page ?>
             },
             success: function(data) {

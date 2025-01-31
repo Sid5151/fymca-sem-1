@@ -1,77 +1,109 @@
 <?php
 // Database connection
-// include "dbconnect1.php"; // Uncomment if you want to store data in DB
-//error_reporting(0);
+include "dbconnect1.php";
 
 // API Key and Endpoint
-$apiKey = "37231a01e7734521a12a04f47128902f"; // Replace with your API key
-$searchQuery = $_POST['req'];
+$apiKey = "fdabb44a326a44ec905c14168fb25040"; // Replace with your API key
+$searchQuery1 = $_POST['req'];
 $number = 5; // Number of results per page
+$searchQuery = str_replace(" ", "_", $searchQuery1);
+$ingredients = isset($_POST['ingredients']) ? $_POST['ingredients'] : '';
+//$dishType = isset($_POST['dishType']) ? $_POST['dishType'] : '';
+$maxCookingTime = isset($_POST['maxCookingTime']) ? intval($_POST['maxCookingTime']) : 0;
 
-// Ensure 'page' exists in $_GET and is a valid value
-$page1 = $_POST['page'];
+// Construct the API URL
+$apiUrl = "https://api.spoonacular.com/recipes/complexSearch?apiKey=$apiKey";
 
-$offset = ($page1 - 1) * $number; // Calculate offset
+if (!empty($ingredients)) {
+  $apiUrl .= "&includeIngredients=" . urlencode($ingredients);
+}
+if (!empty($dishType)) {
+  $apiUrl .= "&type=" . urlencode($dishType);
+}
+if ($maxCookingTime > 0) {
+  $apiUrl .= "&maxReadyTime=" . $maxCookingTime;
+}
 
-$apiUrl = "https://api.spoonacular.com/recipes/complexSearch?query=$searchQuery&number=$number&offset=$offset&apiKey=$apiKey&timestamp=" . time();
+$page1 = isset($_POST['page']) ? intval($_POST['page']) : 1;
+$offset = ($page1 - 1) * $number;
 
-// Initialize cURL
+$apiUrl .= "&query=" . urlencode($searchQuery) . "&number=$number&offset=$offset";
+
+// Check if the recipe already exists in the database
+$checkQuery = "SELECT recipe_id FROM rinfo";
+$existingRecipes = [];
+$result = $conn->query($checkQuery);
+
+if ($result && $result->num_rows > 0) {
+  while ($row = $result->fetch_assoc()) {
+    $existingRecipes[] = $row['recipe_id'];
+  }
+}
+
+// Initialize cURL to fetch data
 $ch = curl_init($apiUrl);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-// Execute and decode the response
 $response = curl_exec($ch);
 
-// Check for cURL errors
 if (curl_errno($ch)) {
   echo 'Error:' . curl_error($ch);
   exit;
 }
-
 curl_close($ch);
 
 $data = json_decode($response, true);
 
-// Debugging: Uncomment below to see full response
-// echo '<pre>';
-// print_r($data); 
-// echo '</pre>';
-
-//echo 'Current page: ' . $page1; // Display current page
-
-// Check and process API response
 if (!empty($data['results'])) {
   foreach ($data['results'] as $recipe) {
-    $title = $recipe['title'];
-    $image = $recipe['image'];
     $recipe_id = $recipe['id'];
 
-    // Fetch the ingredients, time, and instructions for the recipe
-    $ingredientsApiUrl = "https://api.spoonacular.com/recipes/$recipe_id/information?apiKey=$apiKey";
-    $ingredientsCh = curl_init($ingredientsApiUrl);
-    curl_setopt($ingredientsCh, CURLOPT_RETURNTRANSFER, true);
-    $ingredientsResponse = curl_exec($ingredientsCh);
+    if (!in_array($recipe_id, $existingRecipes)) {
+      // Fetch additional recipe information
+      $ingredientsApiUrl = "https://api.spoonacular.com/recipes/$recipe_id/information?apiKey=$apiKey";
+      $ingredientsCh = curl_init($ingredientsApiUrl);
+      curl_setopt($ingredientsCh, CURLOPT_RETURNTRANSFER, true);
+      $ingredientsResponse = curl_exec($ingredientsCh);
 
-    // Check for cURL errors for ingredients request
-    if (curl_errno($ingredientsCh)) {
-      echo 'Error:' . curl_error($ingredientsCh);
-      exit;
+      if (curl_errno($ingredientsCh)) {
+        echo 'Error:' . curl_error($ingredientsCh);
+        exit;
+      }
+
+      curl_close($ingredientsCh);
+
+      $ingredientsData = json_decode($ingredientsResponse, true);
+
+      $title = $conn->real_escape_string($recipe['title']);
+      $image = $conn->real_escape_string($recipe['image']);
+      $description = $conn->real_escape_string($ingredientsData['summary']);
+      $diet = isset($ingredientsData['vegetarian']) && $ingredientsData['vegetarian'] ? 'Vegetarian' : 'Non-Veg';
+      $diet = isset($ingredientsData['vegan']) && $ingredientsData['vegan'] ? 'Vegan' : $diet;
+      $recipeTime = isset($ingredientsData['readyInMinutes']) ? intval($ingredientsData['readyInMinutes']) : 'N/A';
+
+      // Insert recipe into database
+      $insertQuery = "INSERT INTO rinfo (recipe_id, image, recipeTime, diet, title, description) 
+                      VALUES ('$recipe_id', '$image', '$recipeTime', '$diet', '$title', '$description')";
+      $conn->query($insertQuery);
+    } else {
+      // Fetch from database if already exists
+      $fetchQuery = "SELECT * FROM rinfo WHERE recipe_id = '$recipe_id'";
+      $dbResult = $conn->query($fetchQuery);
+      if ($dbResult && $dbResult->num_rows > 0) {
+        $row = $dbResult->fetch_assoc();
+        $title = $row['title'];
+        $image = $row['image'];
+        $description = $row['description'];
+        $diet = $row['diet'];
+        $recipeTime = $row['recipeTime'];
+      }
     }
 
-    curl_close($ingredientsCh);
-
-    $ingredientsData = json_decode($ingredientsResponse, true);
-    $description = $ingredientsData['summary'];
-    $diet = isset($ingredientsData['vegetarian']) && $ingredientsData['vegetarian'] ? 'Vegetarian' : 'Non-Veg';
-    $diet = isset($ingredientsData['vegan']) && $ingredientsData['vegan'] ? 'Vegan' : $diet;
-    $recipeTime = isset($ingredientsData['readyInMinutes']) ? $ingredientsData['readyInMinutes'] : 'N/A';
-
     echo '
-            <div id="results" class="p-4 mt-1 border shadow d-flex flex-column" style="border-radius: 0.5rem">
+        <div id="results" class="p-4 mt-1 border shadow d-flex flex-column" style="border-radius: 0.5rem">
                 <div class="row">
                     <div class="col-md-12 p-0 m-0 d-flex align-items-center">
                         <img src="' . $image . '" alt="Recipe Image" width="200">
-                        <div id="time" style="margin-left: 5rem">
+                        <div id="time" class="ml-md-5">
                             <span>' . $recipeTime . ' - minutes</span><span><i> ' . $diet . ' Dish</i></span>
                         </div>
                     </div>
@@ -83,27 +115,30 @@ if (!empty($data['results'])) {
             </div>';
   }
 
-  // Pagination links
+  // Pagination logic
   $totalResults = min($data['totalResults'], 10);
   $totalPages = ceil($totalResults / $number);
 
   echo '<div class="pagination d-flex justify-content-center mt-4">';
   if ($page1 > 1) {
-    echo "<a href='result.php?page=" . ($page1 - 1) . "&req=" . $searchQuery . "'>
-          <button class='btn btn-primary ml-2'>&laquo; Previous</button>
-        </a>";
+    echo "<a href='result.php?page=" . ($page1 - 1) . "&req=" . urlencode($searchQuery) . "'>
+      <button class='btn btn-primary ml-2'>Previous</button>
+    </a>";
   }
+
   for ($i = 1; $i <= $totalPages; $i++) {
-    echo "<a href='result.php?page=" . $i . "&req= " . $searchQuery . "'>
-          <button class='btn btn-light mx-1'>" . $i . "</button>
-        </a>";
+    $active = $i == $page1 ? 'btn-secondary' : 'btn-primary';
+    echo "<a href='result.php?page=$i&req=" . urlencode($searchQuery) . "'>
+      <button class='btn $active ml-2'>$i</button>
+    </a>";
   }
+
   if ($page1 < $totalPages) {
-    echo "<a href='?page=" . ($page1 + 1) . "&req=" . $searchQuery . "'>
-          <button class='btn btn-primary ml-2'>Next &raquo;</button>
-        </a>";
+    echo "<a href='result.php?page=" . ($page1 + 1) . "&req=" . urlencode($searchQuery) . "'>
+      <button class='btn btn-primary ml-2'>Next</button>
+    </a>";
   }
   echo '</div>';
 } else {
-  echo "<p class='text-center'>No recipes found.</p>";
+  echo '<p>No results found.</p>';
 }
