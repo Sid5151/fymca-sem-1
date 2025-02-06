@@ -177,7 +177,7 @@
     <div class="row my-3 mx-3 border shadow-sm" style="border-radius: 0.8rem">
       <div
         class="col-md-2 px-4 d-flex align-items-center justify-content-center">
-        <img src="images/logo_sample.png" width="150em" alt="" srcset="" />
+        <a href="homepage.php"><img src="images/logo_sample.png" width="150em" alt="" srcset="" /></a>
       </div>
       <div class="col-md-10" id="navbarhaiyeh">
         <br />
@@ -196,16 +196,16 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item active">
-                <a class="nav-link" id="bf" href="result.php?req='breakfast'"><img src="images/breakfast-logo.webp" /> Breakfast</a>
+                <a class="nav-link" id="bf" href="result.php?req=breakfast"><img src="images/breakfast-logo.webp" /> Breakfast</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="result.php?req='starter'"><img src="images/starter-logo.webp" />Starter</a>
+                <a class="nav-link" href="result.php?req=starter"><img src="images/starter-logo.webp" />Starter</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="result.php?req='lunch'"><img src="images/lunch-logo.png" />Lunch</a>
+                <a class="nav-link" href="result.php?req=lunch"><img src="images/lunch-logo.png" />Lunch</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="result.php?req='Dinner'"><img src="images/dinner-logo.jpg" />Dinner</a>
+                <a class="nav-link" href="result.php?req=dinner"><img src="images/dinner-logo.jpg" />Dinner</a>
               </li>
             </ul>
           </div>

@@ -3,7 +3,7 @@
 include "dbconnect1.php";
 
 // API Key and Endpoint
-$apiKey = "fdabb44a326a44ec905c14168fb25040"; // Replace with your API key
+$apiKey = "37231a01e7734521a12a04f47128902f"; // Replace with your API key
 $searchQuery1 = $_POST['req'];
 $number = 5; // Number of results per page
 $searchQuery = str_replace(" ", "_", $searchQuery1);
@@ -81,8 +81,8 @@ if (!empty($data['results'])) {
       $recipeTime = isset($ingredientsData['readyInMinutes']) ? intval($ingredientsData['readyInMinutes']) : 'N/A';
 
       // Insert recipe into database
-      $insertQuery = "INSERT INTO rinfo (recipe_id, image, recipeTime, diet, title, description) 
-                      VALUES ('$recipe_id', '$image', '$recipeTime', '$diet', '$title', '$description')";
+      $insertQuery = "INSERT INTO rinfo (recipe_id, r_search_term, image, recipeTime, diet, title, description) 
+                      VALUES ('$recipe_id','$searchQuery' ,'$image', '$recipeTime', '$diet', '$title', '$description')";
       $conn->query($insertQuery);
     } else {
       // Fetch from database if already exists
@@ -140,5 +140,70 @@ if (!empty($data['results'])) {
   }
   echo '</div>';
 } else {
-  echo '<p>No results found.</p>';
+  //Query to load from DB if api points exceed
+  $offset2 = ($page1 - 1) * 5;
+  $qtl = "SELECT * FROM rinfo WHERE r_search_term = '$searchQuery' LIMIT 5 OFFSET $offset2";
+  $res_qtl = mysqli_query($conn, $qtl);
+
+  if ($res_qtl && $res_qtl->num_rows > 0) {
+
+    while ($row = $res_qtl->fetch_assoc()) {
+      $title = $row['title'];
+      $image = $row['image'];
+      $description = $row['description'];
+      $diet = $row['diet'];
+      $recipeTime = $row['recipeTime'];
+      $recipe_id  = $row['recipe_id'];
+      echo '
+    <div id="results" class="p-4 mt-1 border shadow d-flex flex-column" style="border-radius: 0.5rem">
+            <div class="row">
+                <div class="col-md-12 p-0 m-0 d-flex align-items-center">
+                    <img src="' . $image . '" alt="Recipe Image" width="200">
+                    <div id="time" class="ml-md-5">
+                        <span>' . $recipeTime . ' - minutes</span><span><i> ' . $diet . ' Dish</i></span>
+                    </div>
+                </div>
+            </div>
+            <a href="recipie_display.php?recipe_id=' . $recipe_id . '">
+                <h4 class="mt-3"> ' . $title . ' </h4>
+            </a>
+            <p>' . $description . '</p>
+        </div>';
+    }
+    $qtl2 = "SELECT * FROM rinfo WHERE r_search_term = '$searchQuery'";
+    $res_qtl2 = mysqli_query($conn, $qtl2);
+    $total_rows_qtl = mysqli_num_rows($res_qtl2);
+    $totalResults = $total_rows_qtl;
+    $totalPages = ceil($totalResults / $number);
+
+    echo '<div class="pagination d-flex justify-content-center mt-4">';
+    if ($page1 > 1) {
+      echo "<a href='result.php?page=" . ($page1 - 1) . "&req=" . urlencode($searchQuery) . "'>
+            <button class='btn btn-primary ml-2'>Previous</button>
+          </a>";
+    }
+
+    for ($i = 1; $i <= $totalPages; $i++) {
+      $active = $i == $page1 ? 'btn-secondary' : 'btn-primary';
+      echo "<a href='result.php?page=$i&req=" . urlencode($searchQuery) . "'>
+            <button class='btn $active ml-2'>$i</button>
+          </a>";
+    }
+
+    if ($page1 < $totalPages) {
+      echo "<a href='result.php?page=" . ($page1 + 1) . "&req=" . urlencode($searchQuery) . "'>
+            <button class='btn btn-primary ml-2'>Next</button>
+          </a>";
+      echo '</div>';
+    }
+  } else {
+    echo '<div class="alert alert-warning text-center mt-4" role="alert">
+    <h4 class="alert-heading">No Recipes Found!</h4>
+    <p>Sorry, we could not find any recipes matching your search.</p>
+    <hr>
+    <p class="mb-0">Try using different keywords or ingredients.</p>
+</div>
+';
+  }
+  // Pagination logic
 }
