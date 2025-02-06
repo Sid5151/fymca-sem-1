@@ -79,10 +79,29 @@ if (!empty($data['results'])) {
       $diet = isset($ingredientsData['vegetarian']) && $ingredientsData['vegetarian'] ? 'Vegetarian' : 'Non-Veg';
       $diet = isset($ingredientsData['vegan']) && $ingredientsData['vegan'] ? 'Vegan' : $diet;
       $recipeTime = isset($ingredientsData['readyInMinutes']) ? intval($ingredientsData['readyInMinutes']) : 'N/A';
+      $ingredientsList = "";
+      if (!empty($ingredientsData['extendedIngredients'])) {
+        foreach ($ingredientsData['extendedIngredients'] as $ingredient) {
+          $ingredientsList .= $ingredient['original'] . "<br><hr>";
+        }
+      } else {
+        $ingredientsList = "No ingredients found.";
+      }
 
+      if (isset($ingredientsData['analyzedInstructions'][0]['steps'])) {
+        $stepsArray = $ingredientsData['analyzedInstructions'][0]['steps'];
+        $steps = '';
+        foreach ($stepsArray as $step) {
+          $steps .= 'Step ' . $step['number'] . ': ' . $step['step'] . "<br><hr>";
+        }
+      } else {
+        $steps = "No steps available.";
+      }
+      $ingredientsList = $conn->real_escape_string($ingredientsList);
+      $steps = $conn->real_escape_string($steps);
       // Insert recipe into database
-      $insertQuery = "INSERT INTO rinfo (recipe_id, r_search_term, image, recipeTime, diet, title, description) 
-                      VALUES ('$recipe_id','$searchQuery' ,'$image', '$recipeTime', '$diet', '$title', '$description')";
+      $insertQuery = "INSERT INTO rinfo (recipe_id, r_search_term, image, recipeTime, diet, title, description, ingredients,steps) 
+                      VALUES ('$recipe_id','$searchQuery' ,'$image', '$recipeTime', '$diet', '$title', '$description','$ingredientsList','$steps')";
       $conn->query($insertQuery);
     } else {
       // Fetch from database if already exists

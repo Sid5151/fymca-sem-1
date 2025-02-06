@@ -1,3 +1,6 @@
+<?php
+error_reporting(0);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -169,7 +172,7 @@
     <div class="row my-3 mx-3 border shadow-sm" style="border-radius: 0.8rem">
       <div
         class="col-md-2 px-4 d-flex align-items-center justify-content-center">
-        <img src="images/logo_sample.png" width="150em" alt="" srcset="" />
+        <a href="homepage.php"><img src="images/logo_sample.png" width="150em" alt="" srcset="" /></a>
       </div>
       <div class="col-md-10" id="navbarhaiyeh">
         <br />
@@ -335,38 +338,16 @@
             style="border-radius: 1rem" />
         </div>
         <div class="col-md-12 p-2">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-          Necessitatibus deleniti sequi ducimus cumque quam illo eum ab
-          distinctio laborum reprehenderit?
+          **Savor Every Bite with Recipe & Taste** 🍽️✨
+
+          At **Recipe & Taste**, we bring you a world of flavors, from timeless classics to modern culinary delights. Whether you're a home cook or a seasoned chef, our handpicked recipes, expert tips, and step-by-step guides will help you create magic in your kitchen.
+
+          Join our food-loving community, explore new tastes, and make every meal an unforgettable experience. Stay inspired, stay hungry, and let’s cook up something amazing together!
+
+          🔪 **Fresh Ingredients, Bold Flavors, Endless Possibilities!** 🍲💛
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="row p-3">
-            <div class="col-md-6 p-2">
-              <h4>
-                <i><u>News Letter Signup ---></u></i>
-              </h4>
-            </div>
-            <div class="col-md-6 p-2">
-              <form action="" method="post">
-                <div class="input-group">
-                  <input
-                    type="text"
-                    name="email"
-                    id="email"
-                    class="form-control"
-                    placeholder="Enter your email" />
-                  <input
-                    type="submit"
-                    value="Submit"
-                    class="btn btn-primary" />
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
+
       <div class="row mt-3">
         <div class="col-md-12">
           <p>&copy; 2024 Recipe Book. All rights reserved.</p>

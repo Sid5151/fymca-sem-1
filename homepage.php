@@ -196,9 +196,21 @@
     <!-- after navbar  -->
     <?php
     include "dbconnect1.php";
+    //queries written for carousel display
+    //1. Paneer
     $squery = "Select * from rinfo where recipe_id = 654534";
     $result = mysqli_query($conn, $squery);
     $row = mysqli_fetch_assoc($result);
+
+    //2. Butter Chicken
+    $squery2 = "Select * from rinfo where recipe_id = 647799";
+    $result2 = mysqli_query($conn, $squery2);
+    $row2 = mysqli_fetch_assoc($result2);
+
+    //3. Vegetable Biryani
+    $squery3 = "Select * from rinfo where recipe_id = 660913";
+    $result3 = mysqli_query($conn, $squery3);
+    $row3 = mysqli_fetch_assoc($result3);
     ?>
     <div class="row">
       <div class="col-md-12">
@@ -225,21 +237,20 @@
               </div>
             </div>
             <div class="carousel-item">
-              <img src="images/food2.jpg" class="d-block w-100" alt="..." />
+              <img src="images/butterchicken.jpg" class="d-block w-100" alt="..." />
               <div class="carousel-caption d-none d-md-block">
-                <h5>Second slide label</h5>
+                <h5><a href="recipie_display.php?recipe_id='647799'"><?php echo $row2['title'];  ?></a></h5>
                 <p>
-                  Some representative placeholder content for the second
-                  slide.
+                  "Creamy, dreamy, and packed with spice—Butter Chicken is pure indulgence on a plate!" 🍛🔥
                 </p>
               </div>
             </div>
             <div class="carousel-item">
-              <img src="images/food3.jpg" class="d-block w-100" alt="..." />
+              <img src="images/vegbiryani2.jpg" class="d-block w-100" alt="..." />
               <div class="carousel-caption d-none d-md-block">
-                <h5>Third slide label</h5>
+                <h5><a href="recipie_display.php?recipe_id='660913'"><?php echo $row3['title'];  ?></a></h5>
                 <p>
-                  Some representative placeholder content for the third slide.
+                  "Layered with love, packed with flavor—one spoonful of Vegetable Biryani is pure bliss!" 😍🔥
                 </p>
               </div>
             </div>
@@ -416,38 +427,16 @@
               style="border-radius: 1rem" />
           </div>
           <div class="col-md-12 p-2">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-            Necessitatibus deleniti sequi ducimus cumque quam illo eum ab
-            distinctio laborum reprehenderit?
+            **Savor Every Bite with Recipe & Taste** 🍽️✨
+
+            At **Recipe & Taste**, we bring you a world of flavors, from timeless classics to modern culinary delights. Whether you're a home cook or a seasoned chef, our handpicked recipes, expert tips, and step-by-step guides will help you create magic in your kitchen.
+
+            Join our food-loving community, explore new tastes, and make every meal an unforgettable experience. Stay inspired, stay hungry, and let’s cook up something amazing together!
+
+            🔪 **Fresh Ingredients, Bold Flavors, Endless Possibilities!** 🍲💛
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-12">
-            <div class="row p-3">
-              <div class="col-md-6 p-2">
-                <h4>
-                  <i><u>News Letter Signup ---></u></i>
-                </h4>
-              </div>
-              <div class="col-md-6 p-2">
-                <form action="" method="post">
-                  <div class="input-group">
-                    <input
-                      type="text"
-                      name="email"
-                      id="email"
-                      class="form-control"
-                      placeholder="Enter your email" />
-                    <input
-                      type="submit"
-                      value="Submit"
-                      class="btn btn-primary" />
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
+
         <div class="row mt-3">
           <div class="col-md-12">
             <p>&copy; 2024 Recipe Book. All rights reserved.</p>

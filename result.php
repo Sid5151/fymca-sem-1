@@ -296,11 +296,11 @@
               page: <?php echo $page ?>
             },
             success: function(data) {
-              console.log(data); // Log the returned data for debugging
+              //console.log(data); // Log the returned data for debugging
               $("#result_page_style").html(data);
             },
             error: function(xhr, status, error) {
-              console.error("AJAX Error: " + status + ": " + error);
+              //console.error("AJAX Error: " + status + ": " + error);
             },
             complete: function() {
               $('.spinner-border').hide();
@@ -385,38 +385,16 @@
               style="border-radius: 1rem" />
           </div>
           <div class="col-md-12 p-2">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-            Necessitatibus deleniti sequi ducimus cumque quam illo eum ab
-            distinctio laborum reprehenderit?
+            **Savor Every Bite with Recipe & Taste** 🍽️✨
+
+            At **Recipe & Taste**, we bring you a world of flavors, from timeless classics to modern culinary delights. Whether you're a home cook or a seasoned chef, our handpicked recipes, expert tips, and step-by-step guides will help you create magic in your kitchen.
+
+            Join our food-loving community, explore new tastes, and make every meal an unforgettable experience. Stay inspired, stay hungry, and let’s cook up something amazing together!
+
+            🔪 **Fresh Ingredients, Bold Flavors, Endless Possibilities!** 🍲💛
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-12">
-            <div class="row p-3">
-              <div class="col-md-6 p-2">
-                <h4>
-                  <i><u>News Letter Signup ---></u></i>
-                </h4>
-              </div>
-              <div class="col-md-6 p-2">
-                <form action="" method="post">
-                  <div class="input-group">
-                    <input
-                      type="text"
-                      name="email"
-                      id="email"
-                      class="form-control"
-                      placeholder="Enter your email" />
-                    <input
-                      type="submit"
-                      value="Submit"
-                      class="btn btn-primary" />
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
+
         <div class="row mt-3">
           <div class="col-md-12">
             <p>&copy; 2024 Recipe Book. All rights reserved.</p>
