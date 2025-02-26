@@ -43,7 +43,8 @@ Here's a **README.md** file for your **Food & Taste** project on GitHub:
 
 ## 📸 Screenshots
 
-*(Add some screenshots of the project UI here for better presentation.)*
+![1](https://github.com/user-attachments/assets/8c6f19bd-5e90-49ef-b107-750580259a9f)
+
 
 ## 🎯 Future Enhancements
 
