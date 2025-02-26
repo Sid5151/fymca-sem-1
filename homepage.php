@@ -351,66 +351,70 @@
         </script> -->
         <!-- <div class="col-md-4"><img src="images/food2.jpg" alt="" /></div>
             <div class="col-md-4"><img src="images/food3.jpg" alt="" /></div> -->
+
       </div>
+      <!-- code for curl -->
+      <?php
+      $ch = curl_init();
+      curl_setopt($ch, CURLOPT_URL, "https://api.spoonacular.com/recipes/complexSearch?apiKey=fdabb44a326a44ec905c14168fb25040&sort=healthiness");
+
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+      $respose = curl_exec($ch);
+      $data = json_decode($respose, true);
+      if (curl_error($ch)) {
+        echo curl_error($ch);
+      }
+      ?>
       <div class="col-md-3 mt-3">
         <div class="row p-3 border shadow" style="border-radius: 0.8rem">
-          <h6 class="text-center w-100">Recent Recipes</h6>
+          <h4 class="text-center w-100">Top Healthy Recipes</h4>
+
           <div
-            class="col-md-8 p-2 d-flex flex-column align-items-center justify-content-center center-md d-md-block">
+            class="col-md-12 p-2 d-flex flex-column align-items-center justify-content-center center-md d-md-block">
             <img
-              src="images/food1.jpg"
+              src="<?php echo $data['results'][0]['image'] ?>"
               id="rs-image"
-              width="70%"
               alt=""
-              srcset="" />
+              srcset=""
+              style="max-width: 100%; margin-bottom:0.3rem" />
+            <span><a href="recipie_display.php?recipe_id=<?php echo $data['results'][0]['id'] ?>"><i><?php echo "<br>" . $data['results'][0]['title'] ?></i></a></span>
           </div>
+
           <div
-            class="col-md-4 p-2 d-flex flex-column align-items-center justify-content-center center-md d-md-block">
-            <span>Pav Bhaji</span>
-            <h6>21st August 2024</h6>
-          </div>
-          <div
-            class="col-md-8 p-2 d-flex flex-column align-items-center justify-content-center center-md d-md-block">
+            class="col-md-12 p-2 d-flex flex-column align-items-center justify-content-center center-md d-md-block">
             <img
-              src="images/food2.jpg"
+              src="<?php echo $data['results'][1]['image'] ?>"
               id="rs-image"
-              width="70%"
               alt=""
-              srcset="" />
+              srcset=""
+              style="max-width: 100%; margin-bottom:0.3rem"" />
+            <span><a href=" recipie_display.php?recipe_id=<?php echo $data['results'][1]['id'] ?>"><i><?php echo "<br>" . $data['results'][1]['title'] ?></i></a></span>
           </div>
+
           <div
-            class="col-md-4 p-2 d-flex flex-column align-items-center justify-content-center center-md d-md-block">
-            <span>Pav Bhaji</span>
-            <h6>21st August 2024</h6>
-          </div>
-          <div
-            class="col-md-8 p-2 d-flex flex-column align-items-center justify-content-center center-md d-md-block">
+            class="col-md-12 p-2 d-flex flex-column align-items-center justify-content-center center-md d-md-block">
             <img
-              src="images/food2.jpg"
+              src="<?php echo $data['results'][2]['image'] ?>"
               id="rs-image"
-              width="70%"
               alt=""
-              srcset="" />
+              srcset=""
+              style="max-width: 100%; margin-bottom:0.3rem"" />
+
+            <span><a href=" recipie_display.php?recipe_id=<?php echo $data['results'][2]['id'] ?>"><i><?php echo "<br>" . $data['results'][2]['title'] ?></i></a></span>
           </div>
+
           <div
-            class="col-md-4 p-2 d-flex flex-column align-items-center justify-content-center center-md d-md-block">
-            <span>Pav Bhaji</span>
-            <h6>21st August 2024</h6>
-          </div>
-          <div
-            class="col-md-8 p-2 d-flex flex-column align-items-center justify-content-center center-md d-md-block">
+            class="col-md-12 p-2 d-flex flex-column align-items-center justify-content-center center-md d-md-block">
             <img
-              src="images/food2.jpg"
+              src="<?php echo $data['results'][3]['image'] ?>"
               id="rs-image"
-              width="70%"
               alt=""
-              srcset="" />
+              srcset=""
+              style="max-width: 100%; margin-bottom:0.3rem"" />
+
+            <span><a href=" recipie_display.php?recipe_id=<?php echo $data['results'][3]['id'] ?>"><i><?php echo "<br>" . $data['results'][3]['title'] ?></i></a></span>
           </div>
-          <div
-            class="col-md-4 p-2 d-flex flex-column align-items-center justify-content-center center-md d-md-block">
-            <span>Pav Bhaji</span>
-            <h6>21st August 2024</h6>
-          </div>
+
         </div>
       </div>
     </div>

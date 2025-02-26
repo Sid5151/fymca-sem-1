@@ -258,71 +258,49 @@ error_reporting(0);
           });
         });
       </script>
-      <div class="col-md-3 mt-3">
-        <div class="row p-3 border shadow" style="border-radius: 0.8rem">
-          <h4 class="text-center w-100">Recent Recipes</h4>
-          <div
-            class="col-md-8 p-2 d-flex flex-column align-items-center justify-content-center center-md d-md-block">
-            <img
-              src="images/food1.jpg"
-              id="rs-image"
-              width="70%"
-              alt=""
-              srcset="" />
-          </div>
-          <div
-            class="col-md-4 p-2 d-flex flex-column align-items-center justify-content-center center-md d-md-block">
-            <span>Pav Bhaji</span>
-            <h6>21st August 2024</h6>
-          </div>
-          <div
-            class="col-md-8 p-2 d-flex flex-column align-items-center justify-content-center center-md d-md-block">
-            <img
-              src="images/food2.jpg"
-              id="rs-image"
-              width="70%"
-              alt=""
-              srcset="" />
-          </div>
-          <div
-            class="col-md-4 p-2 d-flex flex-column align-items-center justify-content-center center-md d-md-block">
-            <span>Pav Bhaji</span>
-            <h6>21st August 2024</h6>
-          </div>
-          <div
-            class="col-md-8 p-2 d-flex flex-column align-items-center justify-content-center center-md d-md-block">
-            <img
-              src="images/food2.jpg"
-              id="rs-image"
-              width="70%"
-              alt=""
-              srcset="" />
-          </div>
-          <div
-            class="col-md-4 p-2 d-flex flex-column align-items-center justify-content-center center-md d-md-block">
-            <span>Pav Bhaji</span>
-            <h6>21st August 2024</h6>
-          </div>
-          <div
-            class="col-md-8 p-2 d-flex flex-column align-items-center justify-content-center center-md d-md-block">
-            <img
-              src="images/food2.jpg"
-              id="rs-image"
-              width="70%"
-              alt=""
-              srcset="" />
-          </div>
-          <div
-            class="col-md-4 p-2 d-flex flex-column align-items-center justify-content-center center-md d-md-block">
-            <span>Pav Bhaji</span>
-            <h6>21st August 2024</h6>
-          </div>
-        </div>
+      <div
+        class="col-md-12 p-2 d-flex flex-column align-items-center justify-content-center center-md d-md-block">
+        <img
+          src="<?php echo $data['results'][1]['image'] ?>"
+          id="rs-image"
+          alt=""
+          srcset=""
+          style="max-width: 100%; margin-bottom:0.3rem"" />
+            <span><a href=" recipie_display.php?recipe_id=<?php echo $data['results'][1]['id'] ?>"><i><?php echo "<br>" . $data['results'][1]['title'] ?></i></a></span>
       </div>
-    </div>
-    <!-- end of recipie display div  -->
 
-    <!-- end of recent  -->
+      <div
+        class="col-md-12 p-2 d-flex flex-column align-items-center justify-content-center center-md d-md-block">
+        <img
+          src="<?php echo $data['results'][2]['image'] ?>"
+          id="rs-image"
+          alt=""
+          srcset=""
+          style="max-width: 100%; margin-bottom:0.3rem"" />
+
+            <span><a href=" recipie_display.php?recipe_id=<?php echo $data['results'][2]['id'] ?>"><i><?php echo "<br>" . $data['results'][2]['title'] ?></i></a></span>
+      </div>
+
+      <div
+        class="col-md-12 p-2 d-flex flex-column align-items-center justify-content-center center-md d-md-block">
+        <img
+          src="<?php echo $data['results'][3]['image'] ?>"
+          id="rs-image"
+          alt=""
+          srcset=""
+          style="max-width: 100%; margin-bottom:0.3rem"" />
+
+            <span><a href=" recipie_display.php?recipe_id=<?php echo $data['results'][3]['id'] ?>"><i><?php echo "<br>" . $data['results'][3]['title'] ?></i></a></span>
+      </div>
+
+    </div>
+  </div>
+
+
+  </div>
+  <!-- end of recipie display div  -->
+
+  <!-- end of recent  -->
   </div>
   <br /><br />
 

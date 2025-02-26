@@ -1,18 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, "https://api.spoonacular.com/recipes/complexSearch?apiKey=fdabb44a326a44ec905c14168fb25040&sort=healthiness");
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-
-<body>
-
-  <div class="spinner-border d-none" role="status">
-    <span class="sr-only align-items-center">Loading.....</span>
-  </div>
-</body>
-
-</html>
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$respose = curl_exec($ch);
+$data = json_decode($respose, true);
+if (curl_error($ch)) {
+  echo curl_error($ch);
+} else {
+  echo "<pre>";
+  print_r($data);
+  echo "</pre>";
+  echo $data['results'][0]['title'];
+}
