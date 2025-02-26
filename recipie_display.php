@@ -172,7 +172,7 @@ error_reporting(0);
     <div class="row my-3 mx-3 border shadow-sm" style="border-radius: 0.8rem">
       <div
         class="col-md-2 px-4 d-flex align-items-center justify-content-center">
-        <a href="homepage.php"><img src="images/logo_sample.png" width="150em" alt="" srcset="" /></a>
+        <a href="index.php"><img src="images/logo_sample.png" width="150em" alt="" srcset="" /></a>
       </div>
       <div class="col-md-10" id="navbarhaiyeh">
         <br />
@@ -191,16 +191,16 @@ error_reporting(0);
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item active">
-                <a class="nav-link" id="bf" href="result.php?req='breakfast'"><img src="images/breakfast-logo.webp" /> Breakfast</a>
+                <a class="nav-link" id="bf" href="result.php?req=breakfast"><img src="images/breakfast-logo.webp" /> Breakfast</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="result.php?req='starter'"><img src="images/starter-logo.webp" />Starter</a>
+                <a class="nav-link" href="result.php?req=starter"><img src="images/starter-logo.webp" />Starter</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="result.php?req='lunch'"><img src="images/lunch-logo.png" />Lunch</a>
+                <a class="nav-link" href="result.php?req=lunch"><img src="images/lunch-logo.png" />Lunch</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="result.php?req='Dinner'"><img src="images/dinner-logo.jpg" />Dinner</a>
+                <a class="nav-link" href="result.php?req=Dinner"><img src="images/dinner-logo.jpg" />Dinner</a>
               </li>
             </ul>
           </div>
@@ -258,40 +258,20 @@ error_reporting(0);
           });
         });
       </script>
-      <div
-        class="col-md-12 p-2 d-flex flex-column align-items-center justify-content-center center-md d-md-block">
-        <img
-          src="<?php echo $data['results'][1]['image'] ?>"
-          id="rs-image"
-          alt=""
-          srcset=""
-          style="max-width: 100%; margin-bottom:0.3rem"" />
-            <span><a href=" recipie_display.php?recipe_id=<?php echo $data['results'][1]['id'] ?>"><i><?php echo "<br>" . $data['results'][1]['title'] ?></i></a></span>
-      </div>
+      <?php
+      $ch = curl_init();
+      curl_setopt($ch, CURLOPT_URL, "https://api.spoonacular.com/recipes/complexSearch?apiKey=930d7b04a219448593c698f0bdeb183b&sort=healthiness");
 
-      <div
-        class="col-md-12 p-2 d-flex flex-column align-items-center justify-content-center center-md d-md-block">
-        <img
-          src="<?php echo $data['results'][2]['image'] ?>"
-          id="rs-image"
-          alt=""
-          srcset=""
-          style="max-width: 100%; margin-bottom:0.3rem"" />
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+      $respose = curl_exec($ch);
+      $data = json_decode($respose, true);
+      if (curl_error($ch)) {
+        echo curl_error($ch);
+      }
 
-            <span><a href=" recipie_display.php?recipe_id=<?php echo $data['results'][2]['id'] ?>"><i><?php echo "<br>" . $data['results'][2]['title'] ?></i></a></span>
-      </div>
+      ?>
 
-      <div
-        class="col-md-12 p-2 d-flex flex-column align-items-center justify-content-center center-md d-md-block">
-        <img
-          src="<?php echo $data['results'][3]['image'] ?>"
-          id="rs-image"
-          alt=""
-          srcset=""
-          style="max-width: 100%; margin-bottom:0.3rem"" />
 
-            <span><a href=" recipie_display.php?recipe_id=<?php echo $data['results'][3]['id'] ?>"><i><?php echo "<br>" . $data['results'][3]['title'] ?></i></a></span>
-      </div>
 
     </div>
   </div>

@@ -165,16 +165,16 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item active">
-                <a class="nav-link" id="bf" href="result.php?req='breakfast'"><img src="images/breakfast-logo.webp" /> Breakfast</a>
+                <a class="nav-link" id="bf" href="result.php?req=breakfast"><img src="images/breakfast-logo.webp" /> Breakfast</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="result.php?req='starter'"><img src="images/starter-logo.webp" />Starter</a>
+                <a class="nav-link" href="result.php?req=starter"><img src="images/starter-logo.webp" />Starter</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="result.php?req='lunch'"><img src="images/lunch-logo.png" />Lunch</a>
+                <a class="nav-link" href="result.php?req=lunch"><img src="images/lunch-logo.png" />Lunch</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="result.php?req='Dinner'"><img src="images/dinner-logo.jpg" />Dinner</a>
+                <a class="nav-link" href="result.php?req=Dinner"><img src="images/dinner-logo.jpg" />Dinner</a>
               </li>
             </ul>
           </div>
@@ -356,7 +356,7 @@
       <!-- code for curl -->
       <?php
       $ch = curl_init();
-      curl_setopt($ch, CURLOPT_URL, "https://api.spoonacular.com/recipes/complexSearch?apiKey=fdabb44a326a44ec905c14168fb25040&sort=healthiness");
+      curl_setopt($ch, CURLOPT_URL, "https://api.spoonacular.com/recipes/complexSearch?apiKey=930d7b04a219448593c698f0bdeb183b&sort=healthiness");
 
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
       $respose = curl_exec($ch);

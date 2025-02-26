@@ -177,7 +177,7 @@
     <div class="row my-3 mx-3 border shadow-sm" style="border-radius: 0.8rem">
       <div
         class="col-md-2 px-4 d-flex align-items-center justify-content-center">
-        <a href="homepage.php"><img src="images/logo_sample.png" width="150em" alt="" srcset="" /></a>
+        <a href="index.php"><img src="images/logo_sample.png" width="150em" alt="" srcset="" /></a>
       </div>
       <div class="col-md-10" id="navbarhaiyeh">
         <br />
@@ -311,7 +311,7 @@
       <!-- php code written to fetch heathy recipies from the api  -->
       <?php
       $ch = curl_init();
-      curl_setopt($ch, CURLOPT_URL, "https://api.spoonacular.com/recipes/complexSearch?apiKey=fdabb44a326a44ec905c14168fb25040&sort=healthiness");
+      curl_setopt($ch, CURLOPT_URL, "https://api.spoonacular.com/recipes/complexSearch?apiKey=930d7b04a219448593c698f0bdeb183b&sort=healthiness");
 
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
       $respose = curl_exec($ch);
